@@ -43,7 +43,7 @@ gcloud compute addresses create $globalAddressName --ip-version=IPV4 --global
 # Just in case
 sleep 5
 # Fetching the previously created ip address
-globalIp=`gcloud compute addresses describe lb-ip --global | grep '^address:' | sed 's/ *//g' | awk -F: '{ print $NF }'`
+globalIp=`gcloud compute addresses describe $globalAddressName --global | grep '^address:' | sed 's/ *//g' | awk -F: '{ print $NF }'`
 # Adding forwarding rules for load balancer
 gcloud compute forwarding-rules create $globalForwardingRuleName --address $globalIp --global --target-http-proxy $targetHttpProxy --ports 80
 # Adding firewalls for access to port 80 from load balancer and health checking service
